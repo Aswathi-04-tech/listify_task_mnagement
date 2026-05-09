@@ -18,7 +18,10 @@ const app = express();
 
 // ─── Middleware ───────────────────────────────────────────────────────────────
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: [
+    'http://localhost:5173',
+    'https://listify-task-management.netlify.app',
+  ],
   credentials: true,
 }));
 app.use(express.json());
@@ -27,7 +30,8 @@ app.use(express.json());
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/tasks', require('./routes/taskRoutes'));
 
-// ─── Health Check ─────────────────────────────────────────────────────────────
+
+
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Listify API is running' });
 });
